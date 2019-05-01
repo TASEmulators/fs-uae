@@ -153,33 +153,20 @@ void fs_ml_frame_update_begin(int frame)
 
 void fs_ml_frame_update_end(int frame)
 {
-
-    //printf("%d\n", frame);
-
-    // in timed mode only (non-vsync), the video renderer is waiting for
-    // a new frame signal
+    // the video renderer is waiting for a new frame signal
     fs_mutex_lock(g_frame_available_mutex);
     g_available_frame = frame;
     fs_condition_signal(g_frame_available_cond);
     fs_mutex_unlock(g_frame_available_mutex);
 
-    if (g_fs_ml_video_sync) {
-        fs_mutex_lock(g_start_new_frame_mutex);
-        while (!g_start_new_frame) {
-            fs_condition_wait (g_start_new_frame_cond,
-                    g_start_new_frame_mutex);
-        }
-        g_start_new_frame = 0;
-        fs_mutex_unlock(g_start_new_frame_mutex);
-    } else if (g_fs_ml_vblank_sync) {
-        // emulation running independently on the video renderer
-    } else if (g_fs_ml_benchmarking) {
-        // run as fast as possible
-    } else {
-        // video renderer is waiting for a new frame -signal that a new
-        // frame is ready
-        //fs_condition_signal(g_video_cond);
+    // wait until rendering is completed
+    fs_mutex_lock(g_start_new_frame_mutex);
+    while (!g_start_new_frame) {
+        fs_condition_wait (g_start_new_frame_cond,
+                g_start_new_frame_mutex);
     }
+    g_start_new_frame = 0;
+    fs_mutex_unlock(g_start_new_frame_mutex);
 }
 
 static void save_screenshot_of_opengl_framebuffer(const char *path)
@@ -609,15 +596,6 @@ static void render_iteration_vsync(void)
     g_sleep_until_vsync_last_time = g_adjusted_vblank_time;
     g_estimated_next_vblank_time = g_adjusted_vblank_time + \
             g_fs_ml_target_frame_time;
-
-    // g_start_new_frame_cond is used to signal that a new frame can be
-    // generated when the emulation is running in sync - this is not used
-    // when only display flipping is synced to vblank
-
-    fs_mutex_lock(g_start_new_frame_mutex);
-    g_start_new_frame = 1;
-    fs_condition_signal(g_start_new_frame_cond);
-    fs_mutex_unlock(g_start_new_frame_mutex);
 }
 
 void fs_ml_render_iteration(void)
@@ -628,49 +606,48 @@ void fs_ml_render_iteration(void)
         initialize_opengl_sync();
     }
 
+    // we wait until a new frame is ready
+    if (fs_ml_is_quitting()) {
+        // but when the emulation is quitting, we can't expect any new
+        // frames so there's no point waiting for them. Instead, we just
+        // sleep a bit to throttle the frame rate for the quit animation
+        fs_ml_usleep(10000);
+    } else {
+        // wait max 33 ms to allow the user interface to work even if
+        // the emu hangs
+        // int64_t dest_time = fs_get_real_time() + 33 * 1000;
+        int64_t end_time = fs_condition_get_wait_end_time(33 * 1000);
+        int64_t check_time = 0;
+
+        fs_mutex_lock(g_frame_available_mutex);
+        // fs_log("cond wait until %lld\n", end_time);
+        while (g_rendered_frame == g_available_frame) {
+            fs_condition_wait_until(
+                g_frame_available_cond, g_frame_available_mutex, end_time);
+            check_time = fs_condition_get_wait_end_time(0);
+            if (check_time >= end_time) {
+                // fs_log("timed out at %lld\n", check_time);
+                break;
+            } else {
+                // fs_log("wake-up at %lld (end_time = %lld)\n", check_time, end_time);
+            }
+        }
+        fs_mutex_unlock(g_frame_available_mutex);
+    }
+
     if (g_fs_ml_vblank_sync) {
         render_iteration_vsync();
-    } else if (g_fs_ml_benchmarking) {
-        update_frame();
-        render_frame();
-        swap_opengl_buffers();
     } else {
-        // when vsync is off, we wait until a new frame is ready and
-        // then we display it immediately
-
-        if (fs_ml_is_quitting()) {
-            // but when the emulation is quitting, we can't expect any new
-            // frames so there's no point waiting for them. Instead, we just
-            // sleep a bit to throttle the frame rate for the quit animation
-            fs_ml_usleep(10000);
-        } else {
-            // wait max 33 ms to allow the user interface to work even if
-            // the emu hangs
-            // int64_t dest_time = fs_get_real_time() + 33 * 1000;
-            int64_t end_time = fs_condition_get_wait_end_time(33 * 1000);
-            int64_t check_time = 0;
-
-            fs_mutex_lock(g_frame_available_mutex);
-            // fs_log("cond wait until %lld\n", end_time);
-            while (g_rendered_frame == g_available_frame) {
-                fs_condition_wait_until(
-                    g_frame_available_cond, g_frame_available_mutex, end_time);
-                check_time = fs_condition_get_wait_end_time(0);
-                if (check_time >= end_time) {
-                    // fs_log("timed out at %lld\n", check_time);
-                    break;
-                } else {
-                    // fs_log("wake-up at %lld (end_time = %lld)\n", check_time, end_time);
-                }
-            }
-            fs_mutex_unlock(g_frame_available_mutex);
-        }
-
         update_frame();
         render_frame();
         swap_opengl_buffers();
-        //gl_finish();
     }
+
+    // g_start_new_frame_cond is used to signal that a new frame can be generated
+    fs_mutex_lock(g_start_new_frame_mutex);
+    g_start_new_frame = 1;
+    fs_condition_signal(g_start_new_frame_cond);
+    fs_mutex_unlock(g_start_new_frame_mutex);
 
     if (g_fs_ml_video_screenshot_path) {
         fs_mutex_lock(g_fs_ml_video_screenshot_mutex);
