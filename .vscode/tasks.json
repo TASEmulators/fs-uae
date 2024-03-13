@@ -1,0 +1,62 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"type": "shell",
+			"label": "bootstrap",
+			"command": "./bootstrap",
+			"args": [],
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "configure",
+			"command": "./configure",
+			"args": [],
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "configure and make",
+			"command": "make",
+			"args": [
+				"-j4"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"dependsOrder": "sequence",
+			"dependsOn": ["bootstrap", "configure"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+		},
+		{
+			"type": "shell",
+			"label": "make",
+			"command": "make",
+			"args": [
+				"-j4"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+		},
+		{
+			"type": "shell",
+			"label": "clean",
+			"command": "make",
+			"args": [
+				"clean"
+			],
+			"problemMatcher": []
+		}
+	]
+}
