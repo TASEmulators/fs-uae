@@ -101,7 +101,9 @@ void fse_notify(uint32_t type, const char *format, ...)
         buffer[len - 1] = '\0';
     }
     fs_log("%s\n", buffer);
-
+	printf("%s\n", buffer);
+	
+	/*
     fs_mutex_lock(g_console_mutex);
 
     if (type != 0) {
@@ -127,6 +129,7 @@ void fse_notify(uint32_t type, const char *format, ...)
 
     g_queue_push_head(g_console_lines, line);
     fs_mutex_unlock(g_console_mutex);
+	*/
 }
 
 void fs_emu_hud_add_console_line(const char *text, int flags)
@@ -142,10 +145,12 @@ void fs_emu_hud_add_console_line(const char *text, int flags)
     line->time = fs_emu_monotonic_time();
     line->show_until = line->time + DEFAULT_DURATION;
     g_last_line_time = MAX(line->show_until, line->show_until);
-
+	
+	/*
     fs_mutex_lock(g_console_mutex);
     g_queue_push_head(g_console_lines, line);
     fs_mutex_unlock(g_console_mutex);
+	*/
 }
 
 void fs_emu_hud_add_chat_message(const char *text, const char *player)
