@@ -173,6 +173,14 @@ static fs_emu_key_translation g_default_keymap[] = {
     //{ INPUTEVENT_KEY_CDTV_NEXT, ALL, INPUTEVENT_KEY_CDTV_NEXT },
 
     // { FS_ML_KEY_F, FS_ML_KEY_MOD_LALT, FS_EMU_ACTION_FULLSCREEN },
+	
+    { FS_ML_KEY_Q,            MOD, FS_EMU_ACTION_QUIT },
+    { FS_ML_KEY_R,            MOD, INPUTEVENT_SPC_SOFTRESET },
+    { FS_ML_KEY_T,            MOD, INPUTEVENT_SPC_HARDRESET },
+    { FS_ML_KEY_DELETE,       MOD, INPUTEVENT_SPC_EFLOPPY0 },
+    { FS_ML_KEY_INSERT,       MOD, INPUTEVENT_SPC_DISKSWAPPER_INSERT0 },
+    { FS_ML_KEY_PAGEUP,       MOD, INPUTEVENT_SPC_DISKSWAPPER_NEXT },
+    { FS_ML_KEY_PAGEDOWN,     MOD, INPUTEVENT_SPC_DISKSWAPPER_PREV },
 
     { FS_ML_KEY_A,            MOD, FSE_ACTION_CYCLE_STRETCH_MODE },
     { FS_ML_KEY_B,            MOD, FS_EMU_ACTION_ZOOM_BORDER },
@@ -184,10 +192,7 @@ static fs_emu_key_translation g_default_keymap[] = {
     { FS_ML_KEY_M,            MOD, FS_EMU_ACTION_VOLUME_MUTE },
     { FS_ML_KEY_N,            MOD, INPUTEVENT_UAE_MUTE_FLOPPY_SOUNDS },
     { FS_ML_KEY_P,            MOD, FS_EMU_ACTION_PAUSE },
-    { FS_ML_KEY_Q,            MOD, FS_EMU_ACTION_QUIT },
-    { FS_ML_KEY_R,            MOD, INPUTEVENT_SPC_SOFTRESET },
     { FS_ML_KEY_S,            MOD, FS_EMU_ACTION_SCREENSHOT },
-    { FS_ML_KEY_T,            MOD, INPUTEVENT_SPC_HARDRESET },
     { FS_ML_KEY_Z,            MOD, FS_EMU_ACTION_ZOOM },
     { FS_ML_KEY_X,            MOD, FS_EMU_ACTION_SPECIAL },
     { FS_ML_KEY_W,            MOD, FS_EMU_ACTION_WARP },
@@ -201,9 +206,6 @@ static fs_emu_key_translation g_default_keymap[] = {
     { FS_ML_KEY_LEFT,         MOD, INPUTEVENT_KEY_CURSOR_LEFT },
     { FS_ML_KEY_RIGHT,        MOD, INPUTEVENT_KEY_CURSOR_RIGHT },
 
-    { FS_ML_KEY_AUDIOPLAY,     -1, INPUTEVENT_SPC_DISKSWAPPER_INSERT0 },
-    { FS_ML_KEY_AUDIONEXT,     -1, INPUTEVENT_SPC_DISKSWAPPER_NEXT },
-    { FS_ML_KEY_AUDIOPREV,     -1, INPUTEVENT_SPC_DISKSWAPPER_PREV },
     { FS_ML_KEY_COMMA,        MOD, FS_EMU_ACTION_VOLUME_DOWN },
     { FS_ML_KEY_MUTE,          -1, FS_EMU_ACTION_VOLUME_MUTE },
     { FS_ML_KEY_PAUSE,         -1, FS_EMU_ACTION_PAUSE },

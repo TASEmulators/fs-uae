@@ -14,7 +14,10 @@
 			"type": "shell",
 			"label": "configure",
 			"command": "./configure",
-			"args": [],
+			"args": [
+				"CXXFLAGS=\"-O0 -g\"",
+				"CFLAGS=\"-O0 -g\""
+			],
 			"problemMatcher": []
 		},
 		{
@@ -48,15 +51,6 @@
                 "kind": "build",
                 "isDefault": true
             }
-		},
-		{
-			"type": "shell",
-			"label": "clean",
-			"command": "make",
-			"args": [
-				"clean"
-			],
-			"problemMatcher": []
 		}
 	]
 }
