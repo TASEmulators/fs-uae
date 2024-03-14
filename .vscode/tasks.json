@@ -14,10 +14,7 @@
 			"type": "shell",
 			"label": "configure",
 			"command": "./configure",
-			"args": [
-				"CXXFLAGS=\"-O0 -g\"",
-				"CFLAGS=\"-O0 -g\""
-			],
+			"args": [],
 			"problemMatcher": []
 		},
 		{
