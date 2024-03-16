@@ -255,7 +255,7 @@ F7           | `action_key_f7`             | F7
 F8           | `action_key_f8`             | F8
 F9           | `action_key_f9`             | F9
 F10          | `action_key_f10`            | F10
--            |                             |
+|            |                             |
 BACKQUOTE    | `action_key_backquote`      | BACKQUOTE
 1            | `action_key_1`              | 1
 2            | `action_key_2`              | 2
@@ -277,7 +277,7 @@ LPAREN       | `action_key_lparen`         | **HOME**
 RPAREN       | `action_key_rparen`         | **PAGEUP**
 NP_DIV       | `action_key_div`            | KP_DIVIDE
 NP_MUL       | `action_key_mul`            | KP_MULTIPLY
--            |                             |
+|            |                             |
 TAB          | `action_key_tab`            | TAB
 Q            | `action_key_q`              | Q
 W            | `action_key_w`              | W
@@ -296,7 +296,7 @@ NP_7         | `action_key_np_7`           | KP7
 NP_8         | `action_key_np_8`           | KP8
 NP_9         | `action_key_np_9`           | KP9
 NP_SUB       | `action_key_sub`            | KP_MINUS
--            |                             |
+|            |                             |
 CTRL         | `action_key_ctrl`           | LCTRL
 CAPS_LOCK    | `action_key_caps_lock`      | CAPSLOCK
 A            | `action_key_a`              | A
@@ -316,7 +316,7 @@ NP_4         | `action_key_np_4`           | KP4
 NP_5         | `action_key_np_5`           | KP5
 NP_6         | `action_key_np_6`           | KP6
 NP_ADD       | `action_key_add`            | KP_PLUS
--            |                             |
+|            |                             |
 SHIFT_LEFT   | `action_key_shift_left`     | LSHFT
 30           | `action_key_30`             | LESS
 Z            | `action_key_z`              | Z
@@ -365,7 +365,7 @@ which has these physical keys:
 
 Host Key     | Input Mapping Option        | Comment
 ------------ | --------------------------- | -------
--            |                             | **Function key row**
+|            |                             | **Function key row**
 ESCAPE       | `keyboard_key_escape`       |
 F1           | `keyboard_key_f1`           |
 F2           | `keyboard_key_f2`           |
@@ -382,7 +382,7 @@ F12          | `keyboard_key_f12`          |
 PRINT        | `keyboard_key_print`        |
 SCROLLOCK    | `keyboard_key_scrollock`    |
 PAUSE        | `keyboard_key_print`        |
--            |                             | **Number row**
+|            |                             | **Number row**
 BACKQUOTE    | `keyboard_key_backquote`    |
 1            | `keyboard_key_1`            |
 2            | `keyboard_key_2`            |
@@ -404,7 +404,7 @@ NUMLOCK      | `keyboard_key_numlock`      |
 KP_DIVIDE    | `keyboard_key_kp_divide`    |
 KP_MULTIPLY  | `keyboard_key_kp_multiply`  |
 KP_MINUS     | `keyboard_key_kp_minus`     |
--            |                             | **Top letter row**
+|            |                             | **Top letter row**
 TAB          | `keyboard_key_tab`          |
 Q            | `keyboard_key_q`            |
 W            | `keyboard_key_w`            |
@@ -426,7 +426,7 @@ KP7          | `keyboard_key_kp7`          |
 KP8          | `keyboard_key_kp8`          |
 KP9          | `keyboard_key_kp9`          |
 KP_PLUS      | `keyboard_key_kp_plus`      |
--            |                             | **Middle letter row**
+|            |                             | **Middle letter row**
 CAPSLOCK     | `keyboard_key_capslock`     |
 A            | `keyboard_key_a`            |
 S            | `keyboard_key_s`            |
@@ -443,7 +443,7 @@ BACKSLASH    | `keyboard_key_backslash`    |
 KP4          | `keyboard_key_kp4`          |
 KP5          | `keyboard_key_kp5`          |
 KP6          | `keyboard_key_kp6`          |
--            |                             | **Bottom letter row**
+|            |                             | **Bottom letter row**
 LSHIFT       | `keyboard_key_lshift`       |
 LESS         | `keyboard_key_less`         |
 Z            | `keyboard_key_z`            |
@@ -462,7 +462,7 @@ KP1          | `keyboard_key_kp1`          |
 KP2          | `keyboard_key_kp2`          |
 KP3          | `keyboard_key_kp3`          |
 KP_ENTER     | `keyboard_key_kp_enter`     |
--            |                             | **Bottom row**
+|            |                             | **Bottom row**
 LCTRL        | `keyboard_key_kp_lctrl`     |
 LSUPER       | `keyboard_key_kp_lsuper`    | Left "Windows" key or "Cmd"
 LALT         | `keyboard_key_kp_lalt`      | Different physical position on Mac
@@ -476,7 +476,7 @@ DOWN         | `keyboard_key_down`         |
 RIGHT        | `keyboard_key_right`        |
 KP0          | `keyboard_key_kp0`          |
 KP_PERIOD    | `keyboard_key_kp_period`    |
--            |                             | **Special keys**
+|            |                             | **Special keys**
 VOLUMEUP     | `keyboard_key_volumeup`     |
 VOLUMEDOWN   | `keyboard_key_volumedown`   |
 MUTE         | `keyboard_key_mute`         |
