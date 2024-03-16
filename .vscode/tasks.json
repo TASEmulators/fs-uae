@@ -22,6 +22,8 @@
 			"label": "configure and make",
 			"command": "make",
 			"args": [
+				"CFLAGS=\"-g -O0\"",
+				"CXXFLAGS=\"-g -O0\"",
 				"-j4"
 			],
 			"problemMatcher": [
@@ -39,6 +41,8 @@
 			"label": "make",
 			"command": "make",
 			"args": [
+				"CFLAGS=\"-g -O0\"",
+				"CXXFLAGS=\"-g -O0\"",
 				"-j4"
 			],
 			"problemMatcher": [
