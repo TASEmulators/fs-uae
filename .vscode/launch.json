@@ -10,6 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/fs-uae",
             "args": [],
+            "preLaunchTask": "make",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

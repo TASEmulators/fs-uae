@@ -74,18 +74,19 @@
 static void diskswapper_notification(int swapperslot, int drive)
 {
 	gchar *msg = NULL;
+	const char *path = currprefs.dfxlist[swapperslot];
+	gchar *name = g_path_get_basename(path);
+
 	if (drive == -1) {
-		const char *path = currprefs.dfxlist[swapperslot];
-		gchar *name = g_path_get_basename(path);
-#if 1
+#if 0
 		msg = g_strdup_printf("Swapper: %s\n", name);
 #else
-		msg = g_strdup_printf("Swapper: %s [%d]\n", name, swapperslot);
+		msg = g_strdup_printf("Swapper: Selected slot[%d] %s\n", swapperslot, name);
 #endif
-		g_free(name);
 	} else {
-		msg = g_strdup_printf("Swapper: Inserted disk into DF%d\n", drive);
+		msg = g_strdup_printf("Swapper: Inserted disk %s into DF%d\n", name, drive);
 	}
+	g_free(name);
 
 	if (msg) {
 		/* FIXME: use a new (lib)UAE notification system instead */
@@ -3823,16 +3824,10 @@ static bool inputdevice_handle_inputcode2 (int code, int state)
 		setsystime ();
 		break;
 	case AKS_EFLOPPY0:
-		disk_eject (0);
-		break;
 	case AKS_EFLOPPY1:
-		disk_eject (1);
-		break;
 	case AKS_EFLOPPY2:
-		disk_eject (2);
-		break;
 	case AKS_EFLOPPY3:
-		disk_eject (3);
+		disk_eject (code - AKS_EFLOPPY0);
 		break;
 	case AKS_IRQ7:
 		NMI_delayed ();
